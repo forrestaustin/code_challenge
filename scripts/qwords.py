@@ -24,11 +24,12 @@ def main(wordquery):
         wtu_dict = unpickle_dict(wtu_path)
     except:
         print("Error unpickling file: ", wtu_path)
+        print("Run scripts.processdata to generate pickle file ")
         sys.exit(1)
 
     if wordquery in wtu_dict:
         result_list = wtu_dict[wordquery]
-        for user in result_list: # does seem like this is giving me right results
+        for user in result_list:
             print(user)
     else:
         result_list = None

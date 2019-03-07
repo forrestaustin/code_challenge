@@ -1,4 +1,4 @@
-""" Module of dictionary functions used by proccessdata, qwords, wusers"""
+""" Module of dictionary functions used by proccessdata, qwords, qusers"""
 
 import pickle
 
@@ -6,9 +6,9 @@ import pickle
 def adduser_entry(user, userwords, usertoword_dict):
     """Updates a user to word list dictionary with new user tuple and corresponding list of words
 
-    Takes in a dictionary with format (ip,ua):[list of words]
+    Takes in a dictionary that maps user uples to a list of words
     Takes in a user tuple (ip, ua)
-    Takes in a list of strings
+    Takes in a list of words
     Returns updated dictionary with new user entry
     if no user given i.e. ("", ""), returns the original unmodified dictionary
     """
@@ -45,6 +45,11 @@ def addword_entry(user, userword_list, wordtouser_dict):
 
 
 def pickledict(dest_file, dictionary):
+    """ uses pickle library to serialize a dictionary and store it in specified file location
+
+    Takes in a string to file path destinaton
+    Takes in a dictionary to be serialized
+    """
     try:
         with open(dest_file, 'wb') as pickle_file:
             pickle.dump(dictionary, pickle_file)
@@ -59,9 +64,6 @@ def unpickle_dict(filename):
      Returns dictionary if found
      if not found, returns error
     """
-    try:
-        with open(filename, 'rb') as bfile:
-            dictionary = pickle.load(bfile)
-            return dictionary
-    except IOError:
-        print("unable to open file: ", filename)
+    with open(filename, 'rb') as bfile:
+        dictionary = pickle.load(bfile)
+    return dictionary

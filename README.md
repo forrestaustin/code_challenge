@@ -1,13 +1,33 @@
-# Simpli.fi Dynamic Language Code Challenge - Forrest
+# Simpli.fi Dynamic Language Code Challenge Solution
 
 ## Overview
-This python package is the solution to coding challenge outlined in Challenge_README.md
+This python package contains a solution to coding challenge outlined in Challenge_README.md
 
-This application takes raw text data containing information about a user and creates dictionaries that can be queried by either user or words found from their urls.
+The application takes raw text data containing information about a user and processes them into dictionaries that can be queried by users or words.
 
-The three main functions are accomplished using the processdata, qusers, and qwords modules found in the scripts directory. These modules also utilize functions from parsetools and dictools.
+This is accomplished using the processdata, qusers, and qwords modules found in the scripts directory. These modules also utilize functions from parsetools and dictools.
 
-The data folder contains raw text data for processing as well as binary dictionary files (.pickle)
+## Requirements
+**Required**
+
+* python 3.x
+
+**Recommended**
+
+* pip - package manager
+* venv - virtual environment
+* pytest - test runner
+
+----
+## Usage
+
+    cd <challenge directory>
+    $ python -m venv <path to venv>        # optional
+    $ python pip install requirements.txt  # install dependcy packages
+
+    $ python -m scripts.processdata <path to data file>
+    $ python -m scripts.qwords <example word>
+    $ python -m scripts.qusers <>
 
 
 #Installation
@@ -39,3 +59,12 @@ $ python -m scripts.qwusers "(192.168.1.1, uastring)" # returns list of words fo
 ```
 $ python -m pytest [-v]     #v is option paramter for more details
 ```
+
+----
+## Package References
+* [urllib](https://docs.python.org/3/library/urllib.html)
+* [pytest](https://docs.pytest.org/en/latest/)
+* [argparse](https://docs.python.org/3/library/argparse.html)
+* [pickle](https://docs.python.org/3/library/pickle.html)
+* [venv](https://docs.python.org/3/library/venv.html)
+ 

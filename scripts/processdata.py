@@ -1,6 +1,6 @@
 """ Module that parses a given text file into two dictionaries then stores them as binary files
 
-Takes in positional command line argument of path to txt file with data
+Takes in required command line argument of path to txt file with data
 Returns error if file provided cannot be opened
 
 Output is two pickled dictionaries in data/pickled_data folder
@@ -46,7 +46,7 @@ def main(filepath):
                     continue
                 else:
                     entry += line
-    except:  #whats wrong with just "except"
+    except:
         print("unable to open file: ", rawdatapath)
         sys.exit(1)
 
@@ -54,6 +54,7 @@ def main(filepath):
     pickledict(wtu_filepath, wtu_dict)
 
     return 0
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Take in a file path to txt file')
