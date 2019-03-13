@@ -27,8 +27,8 @@ def test_entryparse(entry, result):
 
 
 @pytest.mark.parametrize(
-    'url, ulist', [
-        ("http://www.stackoverflow.com/exit-vim", ["stackoverflow", "exit-vim", "exit", "vim"]),
+    'url, ulist', [                              # to, a, in filtered out
+        ("http://www.stackoverflow.com/exit-vim/to/a/in", ["stackoverflow", "exit-vim", "exit", "vim"]),
         ("https://www.docs.python.org/3", ["python", "docs"]),
         ("001.microsoftadvertisingexchange.com", ["microsoftadvertisingexchange"]),
         ("adserv.brandaffinity.net/eas?cu=2267;cre=mu;target=_blank", ["adserv", "brandaffinity", "eas"]),
@@ -36,6 +36,8 @@ def test_entryparse(entry, result):
 )
 def test_urltowords(url, ulist):
     assert set(urltowords(url)) == set(ulist)
+    for word in ulist:
+        assert len(word) >= 3
 
 
 

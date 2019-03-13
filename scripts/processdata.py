@@ -16,7 +16,12 @@ from scripts.dictools import pickledict
 import os
 import sys
 import argparse
+import re
 
+ip_p = re.compile(r'(?<=IP: ).*(?=\nUA:)')
+ua_p = re.compile(r'(?<=UA: ).*(?=\nU:)')
+url_p = re.compile(r'(?<=U: ).*(?=\nR:)')
+ref_p = re.compile(r'(?<=R: ).*(?=\n)')
 
 def main(filepath):
 
@@ -31,24 +36,20 @@ def main(filepath):
     wtu_filepath = os.path.join(datapath_pickle, "wtu.pickle")
 
 # entry is string that captures lines between ****\n and resets to "" empty string after encountering ****
-    try:
-        with open(filepath, encoding="utf8") as rawdata:  # file must be in raw_data folder
-            for line in rawdata:
-                if "****\n" in line and entry is not "":
-                    entry_tuple = entryparse(entry)
+    with open(filepath, encoding="utf8") as rawdata:  # file must be in raw_data folder
+        for line in rawdata:
+            if "****\n" in line and entry is not "":
+                entry_tuple = entryparse(entry)
 
-                    user_tuple = (entry_tuple[0], entry_tuple[1])
-                    userwords_list = list(set(urltowords(entry_tuple[2]) + urltowords(entry_tuple[3])))
-                    utw_dict = adduser_entry(user_tuple, userwords_list, utw_dict)
-                    wtu_dict = addword_entry(user_tuple, userwords_list, wtu_dict)
-                    entry = ""
-                elif "****\n" in line:
-                    continue
-                else:
-                    entry += line
-    except:
-        print("unable to open file: ", rawdatapath)
-        sys.exit(1)
+                user_tuple = (entry_tuple[0], entry_tuple[1])
+                userwords_list = list(set(urltowords(entry_tuple[2]) + urltowords(entry_tuple[3])))
+                utw_dict = adduser_entry(user_tuple, userwords_list, utw_dict)
+                wtu_dict = addword_entry(user_tuple, userwords_list, wtu_dict)
+                entry = ""
+            elif "****\n" in line:
+                continue
+            else:
+                entry += line
 
     pickledict(utw_filepath, utw_dict)
     pickledict(wtu_filepath, wtu_dict)

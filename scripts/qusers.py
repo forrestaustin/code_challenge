@@ -1,6 +1,6 @@
 """ Module that queries a dictionary by user and returns list of associated words
 
-Takes in two command line arguments of the form IP Address "User agent String"
+Ts in two command line arguments of the form IP Address "User agent String"
 Currently, user queries are case sensitive
 The dictionary it queries is loaded from data/pickled_data/wtu_dict.pickle
 
@@ -13,7 +13,7 @@ import sys
 from scripts.dictools import unpickle_dict
 import argparse
 
-#test_val = ("76.125.188.56", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1")
+# test_val = ("76.125.188.56", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1")
 
 def main(userquery):
 

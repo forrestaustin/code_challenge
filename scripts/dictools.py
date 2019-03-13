@@ -33,15 +33,14 @@ def addword_entry(user, userword_list, wordtouser_dict):
     if userword_list == []:
         return wordtouser_dict
 
-    new_dict = wordtouser_dict
     for word in userword_list:
-        if word in new_dict:
-            prev_user_list = new_dict[word]
+        if word in wordtouser_dict:
+            prev_user_list = wordtouser_dict[word]
             updated_user_list = prev_user_list + [user]
-            new_dict[word] = updated_user_list
+            wordtouser_dict[word] = updated_user_list
         else:
-            new_dict[word] = [user]
-    return new_dict
+            wordtouser_dict[word] = [user]
+    return wordtouser_dict
 
 
 def pickledict(dest_file, dictionary):

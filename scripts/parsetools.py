@@ -11,29 +11,30 @@ def entryparse(entry):
     Returns a tuple containing all four values found (val1,val2,val3,val4)
     If not in pre-specified format, will return tuple of with empty strings for missing vals
     """
-
-    try:
-        ip = re.search(r'(?<=IP: ).*(?=\nUA:)', entry).group()
-        ua = re.search(r'(?<=UA: ).*(?=\nU:)', entry).group()
-        url = re.search(r'(?<=U: ).*(?=\nR:)', entry).group()
-        ref = re.search(r'(?<=R: ).*(?=\n)', entry).group()
-        sub_entries = (ip, ua, url, ref)
-        return sub_entries
-    except:  # would occur if entry does not fit predefined format
-        print("Invalid data entry found")
-        return("", "", "", "")
-
+    ip_p = re.compile(r'(?<=IP: ).*(?=\nUA:)')
+    ua_p = re.compile(r'(?<=UA: ).*(?=\nU:)')
+    url_p = re.compile(r'(?<=U: ).*(?=\nR:)')
+    ref_p = re.compile(r'(?<=R: ).*(?=\n)')
+    ip = "" if ip_p.search(entry) is None else ip_p.search(entry).group()
+    ua = "" if ua_p.search(entry) is None else ua_p.search(entry).group()
+    url = "" if url_p.search(entry) is None else url_p.search(entry).group()
+    ref = "" if ref_p.search(entry) is None else ref_p.search(entry).group()
+    sub_entries = (ip, ua, url, ref)
+    return sub_entries
 
 def filter_func(token):
     """Used with filter() function to filter out the following list items
 
-    Also filters out entries that are are digits i.e. "76120"
+    Filters out entries that are are digits i.e. "76120"
+    Filters out entries less than 3 characters long
     """
 
     filter_list = ['com', 'org', 'net', 'html', 'php', '', 'www']  # words to remove
     if token in filter_list:
         return False
     elif token.isdigit():      # removes words that are all digits
+        return False
+    elif len(token) < 3:  # omit words less than 3 characters
         return False
     else:
         return True
